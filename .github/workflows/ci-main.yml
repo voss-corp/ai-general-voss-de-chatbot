@@ -34,5 +34,5 @@ jobs:
         with:
           context: .
           push: true
-          tags: acrsharedresourcesaipsharedprodfce001.azurecr.io/${{ secrets.AzureAppService_ContainerUsername }}/general-voss-de-chatbot:${{ github.run_id }}
+          tags: acrsharedresourcesaipsharedprodfce001.azurecr.io/general-voss-de-chatbot:${{ github.run_id }}
           file: ./WebApp.Dockerfile
