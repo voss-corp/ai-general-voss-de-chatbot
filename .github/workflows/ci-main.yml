@@ -35,4 +35,4 @@ jobs:
           context: .
           push: true
           tags: acrsharedresourcesaipsharedprodfce001.azurecr.io/general-voss-de-chatbot:${{ github.run_id }}
-          file: ./WebApp.Dockerfile
+          file: ./Dockerfile
