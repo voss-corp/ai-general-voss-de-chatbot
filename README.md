@@ -1,4 +1,4 @@
-# General VOSS DE Chatbot
+# General VOSS DE Chatbot 2.0
 
 This repo contains sample code for a simple chat webapp that integrates with Azure OpenAI. Note: some portions of the app use preview APIs.
 
