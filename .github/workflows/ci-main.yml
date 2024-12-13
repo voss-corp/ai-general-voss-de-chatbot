@@ -1,0 +1,38 @@
+name: Build and deploy container app to Azure Web App - general-voss-de-chatbot
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Debug .env file
+        run: |
+          echo "${{ vars.ENV_FILE_SETTINGS}}\n${{ secrets.ENV_FILE_SECRETS }}"
+      - name: Create .env file
+        run: |
+          echo "${{ vars.ENV_FILE_SETTINGS}}\n${{ secrets.ENV_FILE_SECRETS }}" > .env
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
+
+      - name: Log in to container registry
+        uses: docker/login-action@v2
+        with:
+          registry: https://acrsharedresourcesaipsharedprodfce001.azurecr.io/
+          username: ${{ secrets.AzureAppService_ContainerUsername }}
+          password: ${{ secrets.AzureAppService_ContainerPassword }}
+
+      - name: Build and push container image to registry
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          push: true
+          tags: acrsharedresourcesaipsharedprodfce001.azurecr.io/${{ secrets.AzureAppService_ContainerUsername }}/general-voss-de-chatbot:${{ github.run_id }}
+          file: ./WebApp.Dockerfile
